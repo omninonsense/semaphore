@@ -1,0 +1,13 @@
+[ignore]
+
+[include]
+
+[libs]
+
+[options]
+exact_by_default=true
+
+[lints]
+unclear-type=warn
+unnecessary-optional-chain=warn
+deprecated-utility=error

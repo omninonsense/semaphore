@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+    ],
+    "settings": {
+      "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/node_modules": true
+      },
+      "debug.node.autoAttach": "off"
+    },
+    "extensions": {
+		"recommendations": [
+			"dbaeumer.vscode-eslint",
+			"flowtype.flow-for-vscode",
+			"christian-kohler.npm-intellisense",
+			"aaron-bond.better-comments",
+			"editorconfig.editorconfig"
+		]
+	}
+}

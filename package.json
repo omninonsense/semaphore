@@ -1,0 +1,57 @@
+{
+  "name": "@gambit/semaphore",
+  "version": "0.1.0",
+  "description": "An async semaphore implemetation",
+  "main": "lib/semaphore.js",
+  "unpkg": "dist/semaphore.js",
+  "module": "es/semaphore.js",
+  "scripts": {
+    "clean": "rimraf lib dist es coverage",
+    "build": "rollup -c",
+    "prepre": "",
+    "lint:eslint": "eslint src/*",
+    "lint:flow": "flow",
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
+    "test:cov": "npm test -- --coverage",
+    "debug": "node --nolazy --inspect-brk lib/semaphore.js"
+  },
+  "keywords": [
+    "semaphore",
+    "mutex",
+    "async",
+    "concurrency"
+  ],
+  "author": "ninomiletich@gambitresearch.com",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@babel/plugin-external-helpers": "^7.2.0",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
+    "@babel/plugin-transform-flow-strip-types": "^7.4.4",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-flow": "^7.0.0",
+    "babel-eslint": "^10.0.2",
+    "eslint": "^6.1.0",
+    "eslint-plugin-flowtype": "^4.2.0",
+    "eslint-plugin-import": "^2.18.2",
+    "flow-bin": "^0.105.2",
+    "flow-remove-types": "^2.105.2",
+    "flow-typed": "^2.6.1",
+    "jest": "^24.9.0",
+    "rimraf": "^3.0.0",
+    "rollup": "^1.19.4",
+    "rollup-plugin-babel": "^4.3.3",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-replace": "^2.2.0",
+    "rollup-plugin-terser": "^5.1.1"
+  },
+  "dependencies": {},
+  "jest": {
+    "testRegex": "(/test/.*\\.spec\\.js)$"
+  },
+  "sideEffects": false
+}
