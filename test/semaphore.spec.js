@@ -1,17 +1,18 @@
 import Semaphore from '../src'
 const asleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
-describe("Semaphore",() => {
-  const sem = new Semaphore(2)
+const CONCURRENCY=2
 
+describe("Semaphore",() => {
   it("limits access", async () => {
+    const sem = new Semaphore(CONCURRENCY)
     let running = 0
     const task = async (id) => {
       const release = await sem.acquire()
       running++
 
       await asleep(10)
-      expect(running).toBeLessThanOrEqual(2)
+      expect(running).toBeLessThanOrEqual(CONCURRENCY)
 
       running--
       release()
@@ -29,6 +30,7 @@ describe("Semaphore",() => {
   })
 
   it("runs all tasks", async () => {
+    const sem = new Semaphore(CONCURRENCY)
     let finished = 0
     const task = async (id) => {
       const release = await sem.acquire()
@@ -50,12 +52,13 @@ describe("Semaphore",() => {
 
   describe("withAcquisition API", () => {
     it("handles acquisition and release automatically", async () => {
+      const sem = new Semaphore(CONCURRENCY)
       let running = 0
       const task = async (id) => {
         running++
 
         await asleep(10)
-        expect(running).toBeLessThanOrEqual(2)
+        expect(running).toBeLessThanOrEqual(CONCURRENCY)
 
         running--
 
@@ -72,6 +75,7 @@ describe("Semaphore",() => {
     })
 
     it("runs all tasks", async () => {
+      const sem = new Semaphore(CONCURRENCY)
       let finished = 0
       const task = async (id) => {
         finished++
@@ -90,6 +94,7 @@ describe("Semaphore",() => {
     })
 
     it("returns properly from tasks", async () => {
+      const sem = new Semaphore(CONCURRENCY)
       let list = [1,2,3,4,5]
       const task = async (id) => {
         return id
@@ -107,6 +112,7 @@ describe("Semaphore",() => {
     })
 
     it("handles errors inside tasks", async () => {
+      const sem = new Semaphore(CONCURRENCY)
       let started = 0, finished = 0, errored = 0
       const task = async (id) => {
         started++
