@@ -132,7 +132,6 @@ describe("Semaphore",() => {
         await sem.withAcquisition(() => task(3))
         await sem.withAcquisition(() => brokenTask(4))
       } catch (error) {
-        console.log(error)
         errored = 1
       }
 
