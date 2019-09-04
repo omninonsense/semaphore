@@ -11,14 +11,12 @@ type Waiting = {
 
 
 class Semaphore {
-  // TODO Switch to using
   _limit: number;
   _running: number;
   _waiting: Waiting[];
   _aborted: boolean;
 
   constructor(limit: number) {
-    // Flow will warn us, but in case we don't have flow in our environment
     if (!limit || (typeof limit === "number" && limit < 1)) {
       throw new SemaphoreAbortedError("Limit must be a positive integer!")
     }
@@ -31,28 +29,23 @@ class Semaphore {
 
   /**
    * Releases the resource.
+   * @private
    */
-  release = () => {
-    //? Make this method private, maybe?
+  _release = () => {
     --this._running
 
     if (this._running < 0) {
       // This can go negative for two reasons:
       //  1. we aborted and there were async functions running after they acquired the lock
-      //  2. `Semaphore.prototype.release() was called twice
+      //  2. `Semaphore.prototype._release()` was called twice
       //
-      // The first case is kinda fine, the second one is a bit troubling. There is the return
-      // function as part of `acquire` API that guards against this, but not sure if that's enough.
-      // A simple way would be to just make `Semaphore.prototype.release` private and only rely
-      // on the returned release function.
-
+      // The first case is kinda fine, the second one could be a bit troubling.
       this._running = 0
     }
 
     const next = this._waiting.shift()
 
     if (next) {
-      // setTimeout to avoid stack nesting
       setTimeout(() => {
         ++this._running
         next.resolve(this._makeSafeRelease())
@@ -66,14 +59,20 @@ class Semaphore {
    */
   _makeSafeRelease = (): ReleaseFn => {
     let released = false
+    let warned = false
+
     const safeRelease = () => {
       if (released) {
-        console.warn()
+        if (!warned) {
+          console.error("The same release function was called more than once!")
+          warned = true
+        }
+
         return
       }
 
-        this.release()
         released = true
+        this._release()
     }
 
     return safeRelease
@@ -89,9 +88,9 @@ class Semaphore {
    * @example
    *     const semaphore = new Semaphore(2)
    *     async function someTask() {
-   *        const relese = semaphore.await()
+   *        const release = semaphore.await()
    *        await doSomething(resource)
-   *        release() // or the low-level (and unsafe) sem.release()
+   *        release()
    *     }
    *
    */
@@ -123,10 +122,6 @@ class Semaphore {
   }
 
   /**
-   * Not sure how useful this is. It's added for just-in-case purpuses
-   */
-
-  /**
    * An convenient way to use the Semaphore with async tasks. The lock is required automatically and released automatically
    *
    * @param {() => Promise<R>} task Async function that depends on the resource acquisition.
@@ -138,13 +133,13 @@ class Semaphore {
    *       await doSomething(resource)
    *     })
    */
-  withAcquisition = async <R>(task: () => Promise<R>): Promise<R> => {
+  withAcquisition = async <R>(task: () => R): Promise<R> => {
     await this.acquire()
 
     try {
       return await task()
     } finally {
-      this.release()
+      this._release()
     }
   }
 }
