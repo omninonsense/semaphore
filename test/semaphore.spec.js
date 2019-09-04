@@ -74,7 +74,7 @@ describe("Semaphore",() => {
       ])
     })
 
-    it("runs all tasks", async () => {
+    it("all tasks ran", async () => {
       const sem = new Semaphore(CONCURRENCY)
       let finished = 0
       const task = async (id) => {
