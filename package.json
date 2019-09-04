@@ -1,6 +1,6 @@
 {
   "name": "@gambit/semaphore",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "An async semaphore implemetation",
   "main": "lib/semaphore.js",
   "unpkg": "dist/semaphore.js",
@@ -8,9 +8,10 @@
   "scripts": {
     "clean": "rimraf lib dist es coverage",
     "build": "rollup -c",
-    "prepre": "",
+    "prepare": "npm run clean && npm test",
     "lint:eslint": "eslint src/*",
     "lint:flow": "flow",
+    "pretest": "npm run build",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "test:cov": "npm test -- --coverage",
@@ -21,6 +22,12 @@
     "mutex",
     "async",
     "concurrency"
+  ],
+  "files": [
+    "dist",
+    "lib",
+    "es",
+    "src"
   ],
   "author": "ninomiletich@gambitresearch.com",
   "license": "MIT",
