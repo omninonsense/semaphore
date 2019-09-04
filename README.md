@@ -2,9 +2,6 @@
 
 This (tiny) package provides a simple [semaphore](https://en.wikipedia.org/wiki/Semaphore_(programming)) implementation for usage with async code.
 
-- TOC
-{:toc}
-
 ## Installation
 
 ~~~console
