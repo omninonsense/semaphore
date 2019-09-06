@@ -144,7 +144,7 @@ and at the end of the function (whether it ran successfully or not) it will rele
 It respects return values of the function being passed in. If there was an exception
 _after_ the lock was acquired, the promise will reject with the failure inside the promise.
 
-Has same semantics as `Promise.prototype.acquire` if the seamphore was aborted.
+Has same semantics as `Semaphore.prototype.acquire` if the seamphore was aborted.
 
 
 **Example**
