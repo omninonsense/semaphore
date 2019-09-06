@@ -29,7 +29,8 @@
     "es",
     "src"
   ],
-  "author": "ninomiletich@gambitresearch.com",
+  "author": "Nino Miletich <ninomiletich@gambitresearch.com>",
+  "repository": "https://github.com/omninonsense/semaphore",
   "license": "MIT",
   "devDependencies": {
     "@babel/cli": "^7.5.5",
