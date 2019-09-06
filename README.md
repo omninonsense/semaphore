@@ -167,7 +167,3 @@ result in a rejected promise. Any pending acquisitions will be rejected.
 ~~~javascript
 semaphore.abort()
 ~~~
-
-## TODO
-
-- Look into using `neutrino` instead of `rollup` since it might make things simpler
