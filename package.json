@@ -1,6 +1,6 @@
 {
   "name": "@gambit/semaphore",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "An async semaphore implemetation",
   "main": "lib/semaphore.js",
   "unpkg": "dist/semaphore.js",
