@@ -137,8 +137,7 @@ release()
 -----
 ### `Semaphore.prototype.withAcquisition<R>(() => R): Promise<R>`
 
-A simplified version of `acquire` using `acquire` which handles exceptions and
-Receives a single function as an argument. Waits for acquisition, runs the function,
+A simplified version of `acquire`. Waits for acquisition, runs the function,
 and at the end of the function (whether it ran successfully or not) it will release the lock.
 
 It respects return values of the function being passed in. If there was an exception
