@@ -1,6 +1,7 @@
 import nodeResolve from 'rollup-plugin-node-resolve'
 import babel from 'rollup-plugin-babel'
 import replace from 'rollup-plugin-replace'
+import copy from 'rollup-plugin-copy'
 import { terser } from 'rollup-plugin-terser'
 
 import pkg from './package.json'
@@ -14,7 +15,18 @@ export default [
       ...Object.keys(pkg.dependencies || {}),
       ...Object.keys(pkg.peerDependencies || {})
     ],
-    plugins: [babel()]
+    plugins: [
+      babel(),
+      copy({
+        targets: [
+          {
+            src: 'src/index.js',
+            dest: 'lib/',
+            rename: 'semaphore.js.flow'
+          }
+        ]
+      })
+    ]
   },
 
   // ES
